@@ -390,9 +390,9 @@ let optionalSquare: Square? = Square(sideLength: 2.5, name: "optional square")
 let sideLength = optionalSquare?.sideLength
 
 enum Rank: Int {
-    case Ace = 2
-    case Queen, Two, Three, Four, Five, Six, Seven, Eight, Nine, Ten
-    case Jack,  King
+    case Ace = 1
+    case Two, Three, Four, Five, Six, Seven, Eight, Nine, Ten
+    case Jack, Queen, King
     func simpleDescription() -> String {
         switch self {
             case .Ace:
@@ -498,6 +498,124 @@ enum Suit {
 let hearts = Suit.Hearts
 var heartsDescription = hearts.simpleDescription()
 var heartsColor = hearts.color()
+
+struct Card {
+    var rank: Rank
+    var suit: Suit
+    func simpleDescription() -> String {
+        return "The \(rank.simpleDescription()) of \(suit.simpleDescription())"
+    }
+    
+    static func createDeck() -> [Card] {
+        var deck = [Card]()
+        var suits: [Suit] = [.Hearts, .Clubs, .Diamonds, .Spades]
+        
+        for var i = 1; Rank.fromRaw(i) != nil; ++i {
+            let rank = Rank.fromRaw(i)!
+            
+            for suit in suits {
+                deck.append(Card(rank: rank, suit: suit))
+            }
+        }
+        return deck
+    }
+}
+
+let threeOfSpades = Card(rank: .Three, suit: .Spades)
+let threeOfSpadesDescription = threeOfSpades.simpleDescription()
+
+Card.createDeck()[5].simpleDescription()
+
+var suits: [Suit] = [.Hearts, .Clubs, .Diamonds, .Spades]
+suits[1].simpleDescription()
+
+Rank.fromRaw(16)?.simpleDescription()
+
+enum ServerResponse {
+    case Result(String, String)
+    case Error(String)
+}
+
+let success = ServerResponse.Result("6:00 am", "08:09 pm")
+let failure = ServerResponse.Error("Out of cheese.")
+
+switch success {
+case let .Result(sunrise, sunset):
+    let serverResponse = "Sunrise is at \(sunrise) and sunset is at \(sunset)."
+case let .Error(error):
+    let serverResponse = "Failure... \(error)"
+}
+
+protocol ExampleProtocol {
+    var simpleDescription: String { get }
+    mutating func adjust()
+}
+
+class SimpleClass: ExampleProtocol {
+    var simpleDescription: String = "A very simple class."
+    var anotherProperty: Int = 69105
+    func adjust() {
+        simpleDescription += " Now 100% adjusted."
+    }
+}
+
+var a = SimpleClass()
+a.adjust()
+let aDescription = a.simpleDescription
+
+struct SimpleStructure: ExampleProtocol {
+    var simpleDescription: String = "A simple structure"
+    mutating func adjust() {
+        simpleDescription += " (adjusted)"
+    }
+}
+
+var b = SimpleStructure()
+b.adjust()
+let bDescription = b.simpleDescription
+
+
+enum SimpleEnum: Int, ExampleProtocol {
+    case One = 1
+    case Two, Three
+    var simpleDescription: String {
+        return "A simple enum: \(self.toRaw())"
+    }
+    mutating func adjust() {
+        if let nextEnum = SimpleEnum.fromRaw(self.toRaw() + 1) {
+            self = nextEnum
+        }
+    }
+}
+
+var one = SimpleEnum.One
+one.adjust()
+one.simpleDescription
+
+extension Int: ExampleProtocol {
+    var simpleDescription: String {
+        return "The number \(self)"
+    }
+    
+    mutating func adjust() {
+        self += 42
+    }
+}
+
+7.simpleDescription
+
+
+extension Double {
+    var absoluteValue: Double {
+        return self < 0 ? -self : self
+    }
+}
+
+(-5.5).absoluteValue
+
+let protocolValue: ExampleProtocol = a
+protocolValue.simpleDescription
+//protocolValue.anotherProperty
 
 
 
