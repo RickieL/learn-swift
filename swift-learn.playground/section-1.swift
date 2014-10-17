@@ -602,8 +602,10 @@ extension Int: ExampleProtocol {
     }
 }
 
-7.simpleDescription
 
+var i: Int = 7   // Extension integer
+var s: String = i.simpleDescription   // Extension string
+s = i.simpleDescription // Return value of 7
 
 extension Double {
     var absoluteValue: Double {
@@ -620,7 +622,21 @@ protocolValue.simpleDescription
 
 
 
-
+protocol ExampleProtocol1 {
+    var simpleDescription1: String { get }
+    mutating func adjust() -> Int
+}
+extension Int: ExampleProtocol1 {
+    var simpleDescription1: String {
+        return "The number \(self)"
+    }
+    mutating func adjust() -> Int {
+        self += 42
+        return self
+    }
+}
+var x:Int = 7
+let y:Int = x.adjust() //49
 
 
 
