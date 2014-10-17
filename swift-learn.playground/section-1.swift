@@ -639,9 +639,50 @@ var x:Int = 7
 let y:Int = x.adjust() //49
 
 
+func repeat<Item>(item: Item, times: Int) -> [Item] {
+    var result = [Item]()
+    for i in 0..<times {
+        result.append(item)
+    }
+    return result
+}
 
+repeat("knock", 4)
 
+enum OptionalValue<T> {
+    case None
+    case Some(T)
+}
 
+var possibleInteger: OptionalValue<Int> = .None
+possibleInteger = .Some(100)
+
+func anyCommonElements <T, U where T: SequenceType, U: SequenceType, T.Generator.Element: Equatable, T.Generator.Element == U.Generator.Element > (lhs: T, rhs: U) -> Bool {
+    for lhsItem in lhs {
+        for rhsItem in rhs {
+            if lhsItem == rhsItem {
+                return true
+            }
+        }
+    }
+    return false
+}
+
+anyCommonElements([1,2,3,4], [2,4])
+
+func anyCommonElements_array <T, U where T: SequenceType, U: SequenceType, T.Generator.Element: Equatable, T.Generator.Element == U.Generator.Element > (lhs: T, rhs: U) -> Array<T.Generator.Element> {
+    var toReturn = Array<T.Generator.Element>()
+    for lhsItem in lhs {
+        for rhsItem in rhs {
+            if lhsItem == rhsItem {
+                toReturn.append(lhsItem)
+            }
+        }
+    }
+    return toReturn
+}
+
+anyCommonElements_array([1, 2, 3, 5], [3, 4, 5])
 
 
 
