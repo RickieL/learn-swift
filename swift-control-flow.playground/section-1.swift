@@ -34,3 +34,114 @@ for index = 0; index < 3; ++index {
 }
 
 println("The loop statements were excuted \(index) times.")
+
+let finalSquare = 25
+var board = [Int](count: finalSquare + 1, repeatedValue: 0)
+
+board[03] = +08; board[06] = +11; board[09] = +09; board[10] = +02
+board[14] = -10; board[19] = -11; board[22] = -02; board[24] = -08
+
+var square = 0
+var diceRoll = 0
+/*
+while square < finalSquare {
+    // roll the dice
+    if ++diceRoll == 7 {diceRoll = 1}
+    // move by the rolled amount
+    square += diceRoll
+    if square < board.count {
+        // if we're still on the board, move up or down for a snake or a ladder
+        square += board[square]
+    }
+}
+
+println("Game over!")
+*/
+
+do {
+    // move up or down for a snake or ladder
+    square += board[square]
+    // roll the dice
+    if ++diceRoll == 7 { diceRoll = 1 }
+    // move by the rolled amount
+    square += diceRoll
+} while square < finalSquare
+
+println("Game Over!")
+
+var temperatureInFahrenheit = 30
+if temperatureInFahrenheit <= 32 {
+    println("It's very cold. Conside wearing a scarf.")
+} else if temperatureInFahrenheit >= 86 {
+    println("It's really warm. Don't forget to wear sunscreen.")
+} else {
+    println("It's not that cold. Wear a T-shirt.")
+}
+
+
+let someCharacter: Character = "e"
+switch someCharacter {
+case "a", "e", "i", "o", "u":
+    println("\(someCharacter) is a vowel")
+case "b", "c", "d", "f", "g", "h", "j", "k", "l",
+     "m","n", "p", "q", "r", "s", "t", "v", "w",
+     "x", "y", "z":
+    println("\(someCharacter) is consonant")
+default:
+    println("\(someCharacter) is not a vowel or a consonant")
+}
+
+
+let count = 3_000_000_000_000
+let countedThings = "stars in the Milky Way"
+var naturalCount: String
+switch count {
+case 0:
+    naturalCount = "no "
+case 1...3:
+    naturalCount = "a few "
+case 4...999_999:
+    naturalCount = "thousands of "
+default:
+    naturalCount = "millions and millions of "
+}
+
+println("There are \(naturalCount) \(countedThings).")
+
+
+let somePoint = (1, 1)
+switch somePoint {
+case (0, 0):
+    println("(0, 0) is at the origin")
+case (_, 0):
+    println("(\(somePoint.0), 0) is on the x-axis")
+case (0, _):
+    println("(0, \(somePoint.1)) is on the y-axis")
+case (-2...2, -2...2):
+    println("(\(somePoint.0), \(somePoint.1)) is inside the box")
+default:
+    println("(\(somePoint.0), \(somePoint.1)) is outside of the box")
+}
+
+let anotherPoint = (2, 0)
+switch anotherPoint {
+case (let x, 0):
+    println("on the x-axis with an x value of \(x)")
+case (0, let y):
+    println("on the y-axis with a y value of \(y)")
+case let (x, y):
+    println("somewhere else at (\(x), \(y))")
+}
+// prints "on the x-axis with an x value of 2"
+
+
+
+
+
+
+
+
+
+
+
+
